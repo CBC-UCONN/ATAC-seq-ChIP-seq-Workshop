@@ -5,7 +5,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
-#SBATCH --array=1-21
+#SBATCH --array=1-16
 
 echo "Job running on: $(hostname)"
 start=$(date +%s)
@@ -15,7 +15,7 @@ echo "Start time: $(date)"
 module load fastqc/0.12.1
 
 # Store some paths as variables
-meta_data=../meta/chip-sra-meta.csv
+meta_data=../meta/atac-sra-meta.csv
 indir=../data/raw-fastq
 outdir=../results/02_fastqc
 

@@ -5,7 +5,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
-#SBATCH --array=1-21
+#SBATCH --array=1-16
 
 # Please do not run this script in the workshop.
 # Instead just run 01_symlink.sh to symlink to the pre-downloaded data
@@ -18,7 +18,7 @@ echo "Start time: $(date)"
 module load sratoolkit/3.0.5
 
 # Store some paths as variables
-meta_data=../meta/chip-sra-meta.csv
+meta_data=../meta/atac-sra-meta.csv
 outdir=../data/raw-fastq
 tmp=/scratch/$USER/sra-cache
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=02_fastqc
+#SBATCH --job-name=10_filter
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
 #SBATCH --partition=general
@@ -12,12 +12,12 @@ start=$(date +%s)
 echo "Start time: $(date)"
 
 # Load requrired modules
-module load fastqc/0.12.1
+module load samtools/1.20
 
 # Store some paths as variables
 meta_data=../meta/chip-sra-meta.csv
-indir=../data/raw-fastq
-outdir=../results/02_fastqc
+indir=../results/07_markdups
+outdir=../results/08_filter
 
 # Create output directory if it doesn't exist 
 mkdir -p $outdir
@@ -30,21 +30,12 @@ sample=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
 layout=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
     'NR==1{for(i=1;i<=NF;i++)if($i=="LibraryLayout")col=i}NR==row+1&&col{print $col}' $meta_data)
 
-echo $layout
 
-# Run FastQC on the sample reads
-if [ "$layout" == "PAIRED" ]; then
+# Retain only high-quality mapped reads (MAPQ >= 30) and remove unmapped, secondary, and supplementary alignments
+# Also remove reads mapped to mtDNA and unplaced contigs (chrM, chrUn_*, chrEBV)
 
-  fastqc -o $outdir $indir/${sample}_1.fastq.gz $indir/${sample}_2.fastq.gz
 
-elif [ "$layout" == "SINGLE" ]; then
 
-  fastqc -o $outdir $indir/${sample}_1.fastq.gz
-
-else 
-  echo "Error: Unknown library layout '$layout' for sample '$sample'"
-  exit 1
-fi
 
 
 echo "End time: $(date)"

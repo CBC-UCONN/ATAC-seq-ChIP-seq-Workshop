@@ -1,23 +1,23 @@
 #!/bin/bash
-#SBATCH --job-name=02_fastqc
+#SBATCH --job-name=04_trim
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=4G
+#SBATCH --mem=16G
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
-#SBATCH --array=1-21
+#SBATCH --array=1-16
 
 echo "Job running on: $(hostname)"
 start=$(date +%s)
 echo "Start time: $(date)"
 
 # Load requrired modules
-module load fastqc/0.12.1
+module load fastp/0.23.2 
 
 # Store some paths as variables
-meta_data=../meta/chip-sra-meta.csv
+meta_data=../meta/atac-sra-meta.csv
 indir=../data/raw-fastq
-outdir=../results/02_fastqc
+outdir=../results/04_trim
 
 # Create output directory if it doesn't exist 
 mkdir -p $outdir
@@ -30,22 +30,29 @@ sample=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
 layout=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
     'NR==1{for(i=1;i<=NF;i++)if($i=="LibraryLayout")col=i}NR==row+1&&col{print $col}' $meta_data)
 
-echo $layout
-
-# Run FastQC on the sample reads
+# Run fastp on the sample reads
 if [ "$layout" == "PAIRED" ]; then
 
-  fastqc -o $outdir $indir/${sample}_1.fastq.gz $indir/${sample}_2.fastq.gz
+  fastp \
+    -i $indir/${sample}_1.fastq.gz \
+    -I $indir/${sample}_2.fastq.gz \
+    -o $outdir/${sample}_1.trimmed.fastq.gz \
+    -O $outdir/${sample}_2.trimmed.fastq.gz \
+    -h $outdir/${sample}_fastp.html \
+    -j $outdir/${sample}_fastp.json
 
 elif [ "$layout" == "SINGLE" ]; then
 
-  fastqc -o $outdir $indir/${sample}_1.fastq.gz
+  fastp \
+    -i $indir/${sample}_1.fastq.gz \
+    -o $outdir/${sample}_1.trimmed.fastq.gz \
+    -h $outdir/${sample}_fastp.html \
+    -j $outdir/${sample}_fastp.json
 
 else 
   echo "Error: Unknown library layout '$layout' for sample '$sample'"
   exit 1
 fi
-
 
 echo "End time: $(date)"
 echo "Elapsed time: $(date -ud "@$(($(date +%s)-start))" +'%H hr %M min %S sec')"
