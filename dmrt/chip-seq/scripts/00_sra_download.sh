@@ -14,7 +14,7 @@ echo "Job running on: $(hostname)"
 start=$(date +%s)
 echo "Start time: $(date)"
 
-# Load requrired modules
+# Load required modules
 module load sratoolkit/3.0.5
 
 # Store some paths as variables

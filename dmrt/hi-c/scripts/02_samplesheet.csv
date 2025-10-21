@@ -1,0 +1,9 @@
+sample,fastq_1,fastq_2
+GSM5184265,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027540_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027540_2.fastq.gz
+GSM5184265,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027541_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027541_2.fastq.gz
+GSM5184266,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027542_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027542_2.fastq.gz
+GSM5184266,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027543_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027543_2.fastq.gz
+GSM5184267,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027544_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027544_2.fastq.gz
+GSM5184267,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027545_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027545_2.fastq.gz
+GSM5184268,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027546_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027546_2.fastq.gz
+GSM5184268,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027547_1.fastq.gz,/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/hi-c/data/raw-fastq/SRR14027547_2.fastq.gz

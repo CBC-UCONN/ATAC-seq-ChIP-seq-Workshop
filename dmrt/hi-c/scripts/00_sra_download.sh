@@ -5,7 +5,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
-#SBATCH --array=1-16
+#SBATCH --array=1-21
 
 # Please do not run this script in the workshop.
 # Instead just run 01_symlink.sh to symlink to the pre-downloaded data
@@ -18,16 +18,17 @@ echo "Start time: $(date)"
 module load sratoolkit/3.0.5
 
 # Store some paths as variables
-meta_data=../meta/atac-sra-meta.csv
+meta_data=../meta/hic-sra-meta.csv
 outdir=../data/raw-fastq
 tmp=/scratch/$USER/sra-cache
 
+mkdir -p $outdir
 mkdir -p $tmp
 
 # Get Nth SRA run accession based on SLURM_ARRAY_TASK_ID from metadata csv file
 sample=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
     'NR==1{for(i=1;i<=NF;i++)if($i=="Run")col=i}NR==row+1&&col{print $col}' $meta_data)
-
+  
 # Download the sample fastq files using the SRA toolkit
 fasterq-dump $sample --temp $tmp --split-files --outdir $outdir 
 

@@ -11,7 +11,7 @@ echo "Job running on: $(hostname)"
 start=$(date +%s)
 echo "Start time: $(date)"
 
-# Load requrired modules
+# Load required modules
 module load MultiQC/1.9
 
 # Store some paths as variables

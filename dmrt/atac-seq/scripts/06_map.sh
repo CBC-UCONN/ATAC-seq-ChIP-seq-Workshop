@@ -11,7 +11,7 @@ echo "Job running on: $(hostname)"
 start=$(date +%s)
 echo "Start time: $(date)"
 
-# Load requrired modules
+# Load required modules
 module load bwa-mem2/2.2.1
 module load samtools/1.20
 
@@ -52,6 +52,9 @@ else
   echo "Error: Unknown library layout '$layout' for sample '$sample'"
   exit 1
 fi
+
+samtools index $outdir/${sample}.sorted.bam
+
 
 echo "End time: $(date)"
 echo "Elapsed time: $(date -ud "@$(($(date +%s)-start))" +'%H hr %M min %S sec')"

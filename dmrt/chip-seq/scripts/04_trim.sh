@@ -11,7 +11,7 @@ echo "Job running on: $(hostname)"
 start=$(date +%s)
 echo "Start time: $(date)"
 
-# Load requrired modules
+# Load required modules
 module load fastp/0.23.2 
 
 # Store some paths as variables

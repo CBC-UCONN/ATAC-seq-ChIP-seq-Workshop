@@ -1,11 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name=03_multiqc_raw
+#SBATCH --job-name=08_multiqc_mapping
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%j.out
-
 
 echo "Job running on: $(hostname)"
 start=$(date +%s)
@@ -15,8 +14,9 @@ echo "Start time: $(date)"
 module load MultiQC/1.9
 
 # Store some paths as variables
-indir=../results/02_fastqc
-outdir=../results/03_multiqc_raw
+meta_data=../meta/chip-sra-meta.csv
+indir="../results/07_samstats ../results/07_markdups ../results/06_map"
+outdir=../results/08_multiqc_mapping
 
 # Create output directory if it doesn't exist
 mkdir -p $outdir
