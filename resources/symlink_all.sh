@@ -4,4 +4,3 @@ ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/resources/Mus_musculus.GRCm39.d
 ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/resources/Mus_musculus.GRCm39.dna_rm.primary_assembly.fa .
 ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/resources/Mus_musculus.GRCm39.dna_rm.primary_assembly.fa.fai .
 ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/resources/Mus_musculus.GRCm39.dna_rm.primary_assembly_sizes.txt .
-ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/resources/nf-xanadu.config .
