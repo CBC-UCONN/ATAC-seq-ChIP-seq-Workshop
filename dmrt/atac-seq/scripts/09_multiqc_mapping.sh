@@ -14,15 +14,14 @@ echo "Start time: $(date)"
 module load MultiQC/1.9
 
 # Store some paths as variables
-meta_data=../meta/atac-sra-meta.csv
-indir=../results/06_map ../results/07_samstats ../results/08_filter
+indirs="../results/06_map ../results/07_samstats"
 outdir=../results/09_multiqc_mapping
 
 # Create output directory if it doesn't exist
 mkdir -p $outdir
 
 # Run MultiQC
-multiqc -o $outdir $indir
+multiqc -o $outdir $indirs
 
 echo "End time: $(date)"
 echo "Elapsed time: $(date -ud "@$(($(date +%s)-start))" +'%H hr %M min %S sec')"

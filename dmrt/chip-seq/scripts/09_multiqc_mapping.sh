@@ -15,7 +15,7 @@ module load MultiQC/1.9
 
 # Store some paths as variables
 meta_data=../meta/chip-sra-meta.csv
-indir="../results/07_samstats ../results/07_markdups ../results/06_map"
+indir="../results/07_samstats ../results/07_markdups"
 outdir=../results/08_multiqc_mapping
 
 # Create output directory if it doesn't exist

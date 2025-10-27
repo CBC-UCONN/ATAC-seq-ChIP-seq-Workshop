@@ -5,7 +5,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
-#SBATCH --array=1-16
+#SBATCH --array=1-10
 
 echo "Job running on: $(hostname)"
 start=$(date +%s)
@@ -22,7 +22,7 @@ outdir=../results/10_frag_dist
 mkdir -p $outdir
 
 java -Xmx31G -jar $PICARD CollectInsertSizeMetrics \
--I $indir/$sample.filtered.bam \
+-I $indir/$sample.filtered.sorted.bam \
 -O $outdir/$sample.fraglen.stats \
 -H $outdir/$sample.fraglen.pdf \
 -M 0.5
