@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
 #SBATCH --partition=mcbstudent
-#SBATCH --qos=general
+#SBATCH --qos=mcbstudent
 #SBATCH --output=logs/%x_%j.out
 
 echo "Job running on: $(hostname)"

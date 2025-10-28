@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --partition=mcbstudent
-#SBATCH --qos=general
+#SBATCH --qos=mcbstudent
 #SBATCH --output=logs/%x_%A_%a.out
 #SBATCH --array=1-10
 

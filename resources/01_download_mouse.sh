@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
 #SBATCH --partition=mcbstudent
-#SBATCH --qos=general
+#SBATCH --qos=mcbstudent
 #SBATCH --output=%x_%j.out
 
 
