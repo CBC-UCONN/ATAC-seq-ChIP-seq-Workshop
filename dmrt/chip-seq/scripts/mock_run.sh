@@ -1,8 +1,8 @@
 #!/bin/bash
 
 name="${1%.sh}"
-results_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/results"
-logs_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/scripts/logs"
+results_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results"
+logs_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/scripts/logs"
 
 # Check if argument is provided
 if [ $# -eq 0 ]; then
@@ -14,10 +14,19 @@ fi
 mkdir -p ../results
 mkdir -p logs
 
+# Check if output exists
 if [ -d "../results/$name" ]; then
+  # Check if output is a symlink
   if [ -L "../results/$name" ]; then
     echo "Removing existing symlink ../results/$name"
     rm "../results/$name"
+    echo "Removing existing log symlinks logs/$name*.out"
+    for i in logs/"$name"*; do
+      if [ -L "$i" ]; then
+        rm "$i"
+      fi
+    done
+    rm logs/"$name"*
   else
     echo "../results/$name already exists and is not a symlink"
     echo "If you wish to remove it, run: rm -rf ../results/$name"
