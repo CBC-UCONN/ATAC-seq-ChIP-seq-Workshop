@@ -1,45 +1,56 @@
 #!/bin/bash
 
+name="${1%.sh}"
+results_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/results"
+logs_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/scripts/logs"
+
 # Check if argument is provided
 if [ $# -eq 0 ]; then
     echo "Error: No argument provided"
-    echo "Usage: $0 <directory_name>"
+    echo "Usage: $0 <script>"
     exit 1
 fi
 
-mkdir ../results
-mkdi logs
+mkdir -p ../results
+mkdir -p logs
 
-# Create the results symlink
-ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results/$1 ../results/$1
+if [ -d "../results/$name"]; then
+  if [ -L "../results/$name" ]; then
+    echo "Removing existing symlink ../results/$name"
+    rm "../results/$name"
+  else
+    echo "../results/$name already exists and is not a symlink"
+    echo "If you wish to remove it, run: rm -rf ../results/$name"
+    exit 1
+  fi
+fi
 
-# Check if results symlink was created successfully
-if [ $? -eq 0 ]; then
-    echo "Symlink created successfully: ../results/$1 -> /core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results/$1"
+if [ ! -d "../results/$name" ]; then
+  ln -s "$results_dir/$name" "../results/$name"
+  if [ $? -eq 0 ]; then
+    echo "Symlink created: ../results/$name"
+  fi
+
+  source_logs="$logs_dir/$name"*
+  log_count=0
+  for logfile in $source_logs; do
+    basename_log=$(basename "$logfile")
+    ln -s "$logfile" logs/"$basename_log"
+  done
+  if [ $log_count -eq 0 ]; then
+    echo "No log files found matching"
+  else
+    echo "Symlinks to log files created: logs/$name*.out"
+  fi
 else
-    echo "Error: Failed to create results symlink"
-    exit 1
+  echo "../results/$name already exists"
+  echo "If you wish to remove it, run: rm -rf ../results/$name"
+  exit 1
 fi
 
-# Create symlinks for all matching log files
-source_logs="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/scripts/logs/$1"*
-log_count=0
 
-for logfile in $source_logs; do
-    if [ -e "$logfile" ]; then
-        basename_log=$(basename "$logfile")
-        ln -s "$logfile" logs/"$basename_log"
-        if [ $? -eq 0 ]; then
-            echo "Log symlink created: logs/$basename_log -> $logfile"
-            ((log_count++))
-        else
-            echo "Warning: Failed to create symlink for $logfile"
-        fi
-    fi
-done
 
-if [ $log_count -eq 0 ]; then
-    echo "Warning: No log files found matching $source_logs"
-fi
 
-echo "Done! Created 1 results symlink and $log_count log symlinks."
+
+
+
