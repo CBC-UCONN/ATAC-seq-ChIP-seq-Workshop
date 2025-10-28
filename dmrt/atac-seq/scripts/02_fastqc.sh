@@ -2,7 +2,7 @@
 #SBATCH --job-name=02_fastqc
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
-#SBATCH --partition=general
+#SBATCH --partition=mcbstudent
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
 #SBATCH --array=1-10

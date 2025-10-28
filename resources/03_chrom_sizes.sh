@@ -2,7 +2,7 @@
 #SBATCH --job-name=02_index_mouse_bwa
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8G
-#SBATCH --partition=general
+#SBATCH --partition=mcbstudent
 #SBATCH --qos=general
 #SBATCH --output=%x_%j.out
 

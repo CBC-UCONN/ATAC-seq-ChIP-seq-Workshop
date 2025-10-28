@@ -2,7 +2,7 @@
 #SBATCH --job-name=01_download
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
-#SBATCH --partition=general
+#SBATCH --partition=mcbstudent
 #SBATCH --qos=general
 #SBATCH --output=%x_%j.out
 

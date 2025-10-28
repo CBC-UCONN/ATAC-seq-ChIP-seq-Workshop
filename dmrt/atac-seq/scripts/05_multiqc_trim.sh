@@ -2,7 +2,7 @@
 #SBATCH --job-name=05_multiqc_trim
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
-#SBATCH --partition=general
+#SBATCH --partition=mcbstudent
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%j.out
 

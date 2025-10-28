@@ -2,7 +2,7 @@
 #SBATCH --job-name=06_map
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
-#SBATCH --partition=general
+#SBATCH --partition=mcbstudent
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
 #SBATCH --array=1-10

@@ -2,7 +2,7 @@
 #SBATCH --job-name=04_trim
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8G
-#SBATCH --partition=general
+#SBATCH --partition=mcbstudent
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%A_%a.out
 #SBATCH --array=1-12
