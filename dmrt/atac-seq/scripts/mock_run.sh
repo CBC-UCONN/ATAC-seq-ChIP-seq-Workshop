@@ -7,6 +7,9 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
+mkdir ../results
+mkdi logs
+
 # Create the results symlink
 ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results/$1 ../results/$1
 

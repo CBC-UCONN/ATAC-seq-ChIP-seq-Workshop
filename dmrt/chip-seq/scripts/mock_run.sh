@@ -7,19 +7,22 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
+mkdir ../results
+mkdi logs
+
 # Create the results symlink
 ln -s /core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results/$1 ../results/$1
 
 # Check if results symlink was created successfully
 if [ $? -eq 0 ]; then
-    echo "Symlink created successfully: ../results/$1 -> /core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/results/$1"
+    echo "Symlink created successfully: ../results/$1 -> /core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results/$1"
 else
     echo "Error: Failed to create results symlink"
     exit 1
 fi
 
 # Create symlinks for all matching log files
-source_logs="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/scripts/logs/$1"*
+source_logs="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/scripts/logs/$1"*
 log_count=0
 
 for logfile in $source_logs; do
