@@ -18,15 +18,16 @@ mkdir -p logs
 if [ -d "../results/$name" ]; then
   # Check if output is a symlink
   if [ -L "../results/$name" ]; then
+    # Remove existing results symlink
     echo "Removing existing symlink ../results/$name"
     rm "../results/$name"
+    # Remove existing log symlinks
     echo "Removing existing log symlinks logs/$name*.out"
     for i in logs/"$name"*; do
       if [ -L "$i" ]; then
         rm "$i"
       fi
     done
-    rm logs/"$name"*
   else
     echo "../results/$name already exists and is not a symlink"
     echo "If you wish to remove it, run: rm -rf ../results/$name"

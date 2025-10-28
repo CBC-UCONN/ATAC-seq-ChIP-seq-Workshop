@@ -26,7 +26,6 @@ if [ -d "../results/$name" ]; then
         rm "$i"
       fi
     done
-    rm logs/"$name"*
   else
     echo "../results/$name already exists and is not a symlink"
     echo "If you wish to remove it, run: rm -rf ../results/$name"
