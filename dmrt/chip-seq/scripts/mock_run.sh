@@ -14,7 +14,7 @@ fi
 mkdir -p ../results
 mkdir -p logs
 
-if [ -d "../results/$name"]; then
+if [ -d "../results/$name" ]; then
   if [ -L "../results/$name" ]; then
     echo "Removing existing symlink ../results/$name"
     rm "../results/$name"
