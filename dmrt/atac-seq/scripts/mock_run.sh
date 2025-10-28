@@ -36,6 +36,7 @@ if [ ! -d "../results/$name" ]; then
   for logfile in $source_logs; do
     basename_log=$(basename "$logfile")
     ln -s "$logfile" logs/"$basename_log"
+    log_count=$((log_count + 1))
   done
   if [ $log_count -eq 0 ]; then
     echo "No log files found matching"
