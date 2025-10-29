@@ -1,0 +1,72 @@
+# Start interactive session
+
+Do this anytime you want to create a Mamba environment or install packages. These tasks are resource-intensive and should not be done on the login node.
+
+```
+srun --partition=mcbstudent --qos=mcbstudent --mem=16GB --pty bash
+```
+
+# Install Mamba
+These steps only need to be done once.
+
+## Download miniforge installer
+```bash
+wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+```
+
+## Install miniforge
+```bash
+bash Miniforge3.sh
+```
+
+1. Agree to license terms (yes)
+2. Choose installation path (default is fine)
+3. **Important**: Choose whether to initialize mamba (select "yes")
+
+```bash
+source ~/.bashrc
+```
+
+# Creating an environment
+Once installed, you can create environments
+
+```bash
+mamba create -n r_atac 
+```
+1. Confirm changes (y)
+
+# Activating an environment
+Once you have created an environment, you can activate it:
+
+```bash
+mamba activate r_atac
+```
+
+# Installing packages
+Once an environment is activated, you can install packages. The following commands install the necessary packages for this workshop.
+
+```bash
+mamba install \
+  bioconda::bioconductor-atacseqqc \
+  bioconda::bioconductor-txdb.mmusculus.ucsc.mm39.knowngene \
+  bioconda::bioconductor-diffbind \
+  bioconda::bioconductor-org.mm.eg.db \
+  bioconda::bioconductor-csaw \
+  bioconda::bioconductor-edger \
+  bioconda::bioconductor-genomicranges \
+  bioconda::bioconductor-chipseeker \
+  bioconda::bioconductor-chipqc \
+  conda-forge::r-tidyverse
+```
+
+
+# Installing TOBIAS
+```bash
+mamba create -n tobias 
+mamba activate tobias
+mamba install -c bioconda tobias
+```
+
+
+
+
