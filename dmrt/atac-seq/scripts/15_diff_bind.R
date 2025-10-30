@@ -7,7 +7,7 @@ library(tidyverse)
 library(GenomeInfoDb)
 
 # # Setup
-out_dir <- "../results/15_diff/"
+out_dir <- "../results/15_diff_bind/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 meta_df <- read.csv("..//meta/atac-sra-meta.csv")
 

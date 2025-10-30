@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=13_diff
+#SBATCH --job-name=13_diff_bind
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
 #SBATCH --partition=general

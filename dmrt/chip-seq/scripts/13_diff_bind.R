@@ -7,7 +7,7 @@ library(tidyverse)
 library(GenomeInfoDb)
 
 # # Setup
-out_dir <- "../results/13_diff/"
+out_dir <- "../results/13_diff_bind/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 meta_df <- read.csv("../meta/chip-sra-meta.csv")
 meta_df <- meta_df[meta_df$antibody == "Abcam ab4729"  & !is.na(meta_df$antibody), ]

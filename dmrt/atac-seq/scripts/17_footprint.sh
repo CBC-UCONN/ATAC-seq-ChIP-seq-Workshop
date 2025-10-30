@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=17_footprints
+#SBATCH --job-name=17_footprint
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
 #SBATCH --partition=general
@@ -24,7 +24,7 @@ sample=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
     'NR==1{for(i=1;i<=NF;i++)if($i=="Run")col=i}NR==row+1&&col{print $col}' $meta_data)
 
 # Create output directory if it doesn't exist 
-outdir=../results/17_footrprints/$sample
+outdir=../results/17_footprint/$sample
 mkdir -p $outdir
 
 genome=../../../resources/Mus_musculus.GRCm39.dna_rm.primary_assembly.fa
