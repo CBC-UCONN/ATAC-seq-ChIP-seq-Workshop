@@ -7,26 +7,32 @@ library(org.Mm.eg.db)
 library(rtracklayer)
 
 # Setup
-out_dir <- "../results/16_csaw/"
+out_dir <- "../results/14_csaw/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-meta_df <- read.csv("../meta/atac-sra-meta.csv")
+meta_df <- read.csv("../meta/chip-sra-meta.csv")
+meta_df <- meta_df[meta_df$antibody == "Abcam ab4729"  & !is.na(meta_df$antibody), ]
+
 bam_files <- file.path("../results/08_filter", paste0(meta_df$Run, ".filtered.sorted.bam"))
 stopifnot(all(file.exists(bam_files)))
 
 # Setup design matrix
-groups <- factor(meta_df$source_name)
+groups <- factor(meta_df$genotype)
 design <- model.matrix(~0 + groups)
-colnames(design) <- c("culturedGC", "GC", "SC") # Rename columns to remove spaces
+colnames(design) <- c("eGfp", "CreERT2") # Rename columns to remove spaces
 
 # Setup contrasts
-contrast1 <- makeContrasts(GC_vs_SC = GC - SC, levels=design)
-contrast2 <- makeContrasts(culturedGC_vs_SC = culturedGC - SC, levels=design)
-contrast3 <- makeContrasts(culturedGC_vs_GC = culturedGC - GC, levels=design)
+contrast1 <- makeContrasts(eGfp_vs_CreERT2 = eGfp - CreERT2, levels=design)
+
+# Compute average fragment length
+cat("\nEstimating fragment length...\n")
+x <- correlateReads(bam_files)
+frag.len <- maximizeCcf(x)
+frag.len
 
 # Count reads in windows across the genome
 cat("\nCounting reads in windows...\n")
-win.data <- windowCounts(bam_files, width=150) 
+win.data <- windowCounts(bam_files, width=10, ext=frag.len) 
 win.data$totals
 win.data
 
@@ -59,26 +65,14 @@ y <- asDGEList(filtered.data)
 y <- estimateDisp(y, design)
 fit <- glmQLFit(y, design, robust=TRUE)
 
-# Can use the following to save and reload fit model object if needed to avoid re-running 
-# time intensive parts above 
-# Save fit object
-cat("\nSaving window counts...\n")
-saveRDS(fit, file = file.path(out_dir, "fit_model.rds"))
-
-# Reload fit model object
-fit <- readRDS(file.path(out_dir, "fit_model.rds"))
-
-
 # Test for differential accessibility
 results1 <- glmQLFTest(fit, contrast=contrast1)
-results2 <- glmQLFTest(fit, contrast=contrast2)
-results3 <- glmQLFTest(fit, contrast=contrast3)
 
 
 ##############
 # Would want to repeat this for each contrast
 # Examine results
-cat("\nTop results for GC vs SC:\n")
+cat("\nPreview of results:\n")
 head(results1$table)
 
 merged1 <- mergeResults(filtered.data, results1$table, tol=100, merge.args=list(max.width=5000))
