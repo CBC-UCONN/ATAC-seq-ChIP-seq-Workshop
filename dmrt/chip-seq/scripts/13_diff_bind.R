@@ -3,7 +3,6 @@ library(DiffBind)
 library(TxDb.Mmusculus.UCSC.mm39.knownGene)
 library(org.Mm.eg.db)
 library(ChIPseeker)
-library(tidyverse)
 library(GenomeInfoDb)
 
 # # Setup
