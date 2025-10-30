@@ -31,7 +31,7 @@ findMotifsGenome.pl \
   $indir/${sample}_peaks.narrowPeak \
   $ref \
   $outdir/${sample}_motifs \
-  -size 200 \
+  -size 50 \
   -S 6
 
 
