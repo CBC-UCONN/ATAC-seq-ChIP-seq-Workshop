@@ -1,0 +1,134 @@
+---
+title: "ATAC-seq / Chip-seq Workshop"
+author: "Kerry Cobb"
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    header-includes: |
+      <link href="custom.css" rel="stylesheet">
+---
+
+
+## Downstream Analyses
+1. QC
+2. Peak Calling
+3. Differential Accessibility Analysis
+4. Transcription Factor Footprinting
+5. Integration with Other Genomic Data
+
+
+<!------------------------------------------------------------------>
+## ATAC-seq QC - Fragment Size Distribution
+<br>
+
+The ideal fragment distribution: 
+
+<br>
+
+![activemotif.com](img/atac-fragment.png){.nostretch width="800px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## ATAC-seq QC - Fragment Size Distribution
+<br>
+Example fragment size distribution from ATAC-seq data:
+
+![](img/atac-fragment-reads.png){.nostretch width="700px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## ATAC-seq QC - Fragment Size Distribution
+
+<br>
+
+![](img/atac-fragment-size-outcomes.png){.nostretch width="1000px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## ATAC-seq QC - Library Complexity 
+- Unique vs. Duplicate Reads
+- Library complexity can be assessed by examining the ratio of unique to duplicate reads.
+- Low complexity libraries may have many duplicate reads, suggesting PCR bias or other issues.
+- High complexity libraries will begin to plateau as sequencing depth increases.
+  - This indicates that sequecnign depth is nearly saturated and additional sequencing will yield few new unique reads.
+
+
+<!------------------------------------------------------------------>
+## ATAC-seq QC - Library Complexity {.smaller}
+![](img/library-complexity.png){.nostretch width="800px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## ATAC-seq QC - TSS Score {.smaller}
+- Transcription Start Site (TSS) Enrichment Score
+- Measures enrichment of reads at TSSs compared to flanking regions
+- ATAC-seq data is universally enriched at gene TSS regions compared to other genomic regions
+
+![](img/tss.png){.nostretch width="600px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## Fraction of Reads in Peaks (FRiP)
+- Proportion of mapped reads that fall within called peaks
+- Higher FRiP indicates better signal-to-noise ratio
+- Performed after peak calling
+
+
+<!------------------------------------------------------------------>
+## Shifting Reads
+- Tn5 transposase procuces 5' overhangs of 9 bp 
+- To account for this, we shift the reads +4 bp for the + strand and -5 bp for the - strand
+
+![](img/tn5-shift.png){.nostretch width="600px" fig-align="center"}
+
+<!------------------------------------------------------------------>
+## Peak Calling {.smaller}
+- **MACS3**
+  - Model-based Analysis
+- HMMRATAC
+  - Hidden Markov Model for ATAC-seq
+  - Implemented in MACS3
+- Genrich
+  - Specifically designed for ATAC-seq and DNase-seq data
+- HOMER
+- csaw
+  - Window-based approach
+
+
+<!------------------------------------------------------------------>
+## MACS3
+- Model-based Analysis
+- Widely used for ChIP-seq and ATAC-seq peak calling
+
+
+
+<!------------------------------------------------------------------>
+## csaw
+- Window-based approach
+- Uses a sliding window to count reads and identify peaks
+- Can be used for both ChIP-seq and ATAC-seq data
+
+
+<!------------------------------------------------------------------>
+## Differential Accessibility Analysis
+- Identify regions with significant differences in accessibility between conditions
+- Tools:
+  - DESeq2
+  - edgeR
+  - **DiffBind**
+  - **csaw**
+
+
+
+<!------------------------------------------------------------------>
+## Transcription Factor Footprinting
+- Identify regions within open chromatin where transcription factors are bound
+- Identify which transcription factors are bound using known motifs
+  - [JASPAR](https://jaspar.elixir.no/)
+  - [HOCOMOCO](https://hocomoco13.autosome.org/)
+  - [TRANSFAC](https://genexplain.com/transfac-product)
+
+## Transcription Factor Footprinting - TOBIAS
+
+![](img/footprinting.png){.nostretch width="600px" fig-align="center"}
