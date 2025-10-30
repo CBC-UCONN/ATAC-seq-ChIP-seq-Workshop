@@ -3,11 +3,11 @@ library(DiffBind)
 library(TxDb.Mmusculus.UCSC.mm39.knownGene)
 library(org.Mm.eg.db)
 library(ChIPseeker)
-library(tidyverse)
 library(GenomeInfoDb)
+library(rtracklayer)
 
 # # Setup
-out_dir <- "../results/15_diff/"
+out_dir <- "../results/15_diff_bind/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 meta_df <- read.csv("..//meta/atac-sra-meta.csv")
 
@@ -111,36 +111,13 @@ write.csv(as.data.frame(anno_res1), file.path(out_dir, "contrast1_all.csv"), row
 write.csv(as.data.frame(anno_res2), file.path(out_dir, "contrast2_all.csv"), row.names=FALSE)
 write.csv(as.data.frame(anno_res3), file.path(out_dir, "contrast3_all.csv"), row.names=FALSE)
 
-cat("\nWriting significant peaks to BED files...\n")
-sig_res1 <- anno_res1[anno_res1@data$FDR <= 0.05, ]
-bed_df <- data.frame(
-  chrom = seqnames(sig_res1),
-  start = start(sig_res1),
-  end = end(sig_res1),
-  name = sig_res1@data$geneId,
-  score = -10 * log10(sig_res1@data$FDR),
-  strand = strand(sig_res1))
-write.table(bed_df, file.path(out_dir, "contrast1_significant_peaks.bed"), 
-            sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+sig_res1 <- res1[res1$FDR <= 0.05, ]
+sig_res2 <- res2[res2$FDR <= 0.05, ]
+sig_res3 <- res3[res3$FDR <= 0.05, ]
 
-sig_res2 <- anno_res2[anno_res2@data$FDR <= 0.05, ]
-bed_df <- data.frame(
-  chrom = seqnames(sig_res2),
-  start = start(sig_res2),
-  end = end(sig_res2),
-  name = sig_res2@data$geneId,
-  score = -10 * log10(sig_res2@data$FDR),
-  strand = strand(sig_res2))
-write.table(bed_df, file.path(out_dir, "contrast2_significant_peaks.bed"), 
-            sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+# Output significant peaks to a BED file
+export.bed(sig_res1, file.path(out_dir, "contrast1_significant_peaks.bed"))
+export.bed(sig_res2, file.path(out_dir, "contrast2_significant_peaks.bed"))
+export.bed(sig_res3, file.path(out_dir, "contrast3_significant_peaks.bed"))
 
-sig_res3 <- anno_res3[anno_res3@data$FDR <= 0.05, ]
-bed_df <- data.frame(
-  chrom = seqnames(sig_res3),
-  start = start(sig_res3),
-  end = end(sig_res3),
-  name = sig_res3@data$geneId,
-  score = -10 * log10(sig_res3@data$FDR),
-  strand = strand(sig_res3))
-write.table(bed_df, file.path(out_dir, "contrast3_significant_peaks.bed"), 
-            sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+

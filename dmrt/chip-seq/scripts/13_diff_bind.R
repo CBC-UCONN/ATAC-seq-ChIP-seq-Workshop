@@ -98,3 +98,7 @@ anno_res1 <- annotatePeak(res1, TxDb = txdb, annoDb = "org.Mm.eg.db", tssRegion 
 # Output annotated results to CSV
 cat("\nWriting annotated results to CSV...\n")
 write.csv(as.data.frame(anno_res1), file.path(out_dir, "contrast1_all.csv"), row.names=FALSE)
+
+# Output significant peaks to a BED file
+sig_res1 <- res1[res1$FDR <= 0.05, ]
+export.bed(sig_res1, file.path(out_dir, "contrast1_significant_peaks.bed"))
