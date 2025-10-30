@@ -1,0 +1,132 @@
+---
+title: "ATAC-seq / Chip-seq Workshop"
+author: "Kerry Cobb"
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    header-includes: |
+      <link href="custom.css" rel="stylesheet">
+---
+
+## [ChIP-seq - Chromatin Immunoprecipitation Sequencing]{style="font-size: .75em;"}
+
+![](img/chip-protocol.png){.nostretch width="600px" fig-align="center"}
+
+
+
+<!------------------------------------------------------------------>
+## [CUT&RUN - Cleavage under targets and release using nuclease]{.smaller}{style="font-size: .65em;"}
+
+![](img/cut-and-run-workflow.png){.nostretch width="450px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## [CUT&TAG - Cleavage under targets and tagmentation]{.smaller}{style="font-size: .65em;"}
+
+![](img/cut-and-tag-workflow.png){.nostretch width="450px" fig-align="center"}
+
+
+## Peaks {.smaller}
+
+![](img/cross-correlation2.webp){.nostretch width="700px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## Shared Analytical Workflow
+1. Quality Control
+2. Read Trimming and Filtering
+3. Read Alignment
+4. Peak Calling
+5. Downstream Analysis
+
+
+<!------------------------------------------------------------------>
+## Downstream Analyses
+1. ChIP-seq specific QC
+2. Peak Calling with ChIP-seq specific parameters
+3. Differential Accessibility Analysis
+4. Motif Discovery
+5. Integration with Other Genomic Data
+
+
+<!------------------------------------------------------------------>
+## Chip-seq QC
+1. Library Complexity
+2. Fraction of Reads in Peaks (FRiP)
+3. Cross-Correlation Analysis
+
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Library Complexity 
+
+![](img/library-complexity.png){.nostretch width="800px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Fraction of Reads in Peaks (FRiP)
+- Proportion of mapped reads that fall within called peaks
+- Higher FRiP indicates better signal-to-noise ratio
+- Performed after peak calling
+
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Cross-Correlation Analysis
+![](img/cross-correlation2.webp){.nostretch width="600px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Cross-Correlation Analysis
+![Mary Piper](img/cross-correlation1_mary-piper.png)
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Cross-Correlation Analysis
+![Mary Piper](img/cross-correlation2_mary-piper.png)
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Cross-Correlation Analysis
+![Mary Piper](img/cross-correlation3_mary-piper.png)
+
+<!------------------------------------------------------------------>
+## ChIP-seq QC - Cross-Correlation Analysis
+![](img/cross-correlation.webp){.nostretch width="600px" fig-align="center"}
+
+
+<!------------------------------------------------------------------>
+## Peak Calling {.smaller}
+- **MACS3**
+  - Model-based Analysis
+- HOMER
+- csaw
+  - Window-based approach
+- SEACR
+  - CUT&RUN specific
+  - May perform better 
+
+
+<!------------------------------------------------------------------>
+## Differential Binding Analysis
+- Identify regions with significant differences in binding between conditions
+- Tools:
+  - DESeq2
+  - edgeR
+  - **DiffBind**
+  - **csaw**
+
+
+<!------------------------------------------------------------------>
+## Motif Discovery 
+- Identify enriched DNA sequence motifs within peaks
+- Tools:
+  - MEME Suite
+  - **HOMER**
+  - DREME
+
+## Homer
+- A tool for motif discovery and analysis
+- Can find known and de novo motifs
+- Size is important parameter
+  - Default is 200bp
+  - 50 may be more reasonable for single TF motif discovery
+  - Could go larger to capture co-enriched motifs
+  - 500-1000bp for histone marked regions
