@@ -4,6 +4,7 @@ library(TxDb.Mmusculus.UCSC.mm39.knownGene)
 library(org.Mm.eg.db)
 library(ChIPseeker)
 library(GenomeInfoDb)
+library(rtracklayer)
 
 # # Setup
 out_dir <- "../results/13_diff_bind/"
