@@ -27,12 +27,12 @@ mkdir -p $outdir
 sample=$(awk -F, -v row=${SLURM_ARRAY_TASK_ID} \
     'NR==1{for(i=1;i<=NF;i++)if($i=="Run")col=i}NR==row+1&&col{print $col}' $meta_data)
 
-
 findMotifsGenome.pl \
   $indir/${sample}_peaks.narrowPeak \
   $ref \
   $outdir/${sample}_motifs \
-  -size 200 
+  -size 200 \
+  -S 6
 
 
 echo "End time: $(date)"
