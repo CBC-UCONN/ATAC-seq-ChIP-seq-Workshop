@@ -38,9 +38,16 @@ alignmentSieve \
   --minMappingQuality 30 \
   --ignoreDuplicates
 
-# Create index for filtered BAM
-samtools sort -o $outdir/$sample.filtered.sorted.bam $outdir/$sample.filtered.bam
+# Select only reads for listed chromosomes, sort, and create index for filtered BAM
+samtools view -b $outdir/$sample.filtered.bam {1..19} X Y \
+  | samtools sort -o $outdir/$sample.filtered.sorted.bam 
 samtools index $outdir/$sample.filtered.sorted.bam
+
+# # Alternative for removing specific chromosomes
+# samtools idxstats $outdir/$sample.filtered.bam | cut -f1 | grep -v -E 'MT|X|Y' \
+#   | xargs samtools view -b $outdir/$sample.filtered.bam \
+#   | samtools sort -o $outdir/$sample.filtered.sorted.bam
+# samtools index $outdir/$sample.filtered.sorted.bam
 
 rm $outdir/$sample.filtered.bam
 
