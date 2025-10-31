@@ -1,8 +1,8 @@
 #!/bin/bash
 
 name="${1%.sh}"
-results_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/results"
-logs_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/atac-seq/scripts/logs"
+results_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/results"
+logs_dir="/core/cbc/tutorials/workshopdirs/Chip-ATAC/dmrt/chip-seq/scripts/logs"
 
 # Check if argument is provided
 if [ $# -eq 0 ]; then

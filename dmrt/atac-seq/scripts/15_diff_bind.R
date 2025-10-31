@@ -3,11 +3,11 @@ library(DiffBind)
 library(TxDb.Mmusculus.UCSC.mm39.knownGene)
 library(org.Mm.eg.db)
 library(ChIPseeker)
-library(tidyverse)
 library(GenomeInfoDb)
+library(rtracklayer)
 
 # # Setup
-out_dir <- "../results/15_diff/"
+out_dir <- "../results/15_diff_bind/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 meta_df <- read.csv("..//meta/atac-sra-meta.csv")
 
@@ -110,3 +110,14 @@ cat("\nWriting annotated results to CSV...\n")
 write.csv(as.data.frame(anno_res1), file.path(out_dir, "contrast1_all.csv"), row.names=FALSE)
 write.csv(as.data.frame(anno_res2), file.path(out_dir, "contrast2_all.csv"), row.names=FALSE)
 write.csv(as.data.frame(anno_res3), file.path(out_dir, "contrast3_all.csv"), row.names=FALSE)
+
+sig_res1 <- res1[res1$FDR <= 0.05, ]
+sig_res2 <- res2[res2$FDR <= 0.05, ]
+sig_res3 <- res3[res3$FDR <= 0.05, ]
+
+# Output significant peaks to a BED file
+export.bed(sig_res1, file.path(out_dir, "contrast1_significant_peaks.bed"))
+export.bed(sig_res2, file.path(out_dir, "contrast2_significant_peaks.bed"))
+export.bed(sig_res3, file.path(out_dir, "contrast3_significant_peaks.bed"))
+
+

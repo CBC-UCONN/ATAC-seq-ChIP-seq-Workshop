@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=13_diff
+#SBATCH --job-name=13_diff_bind
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=64G
+#SBATCH --mem=32G
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --output=logs/%x_%j.out

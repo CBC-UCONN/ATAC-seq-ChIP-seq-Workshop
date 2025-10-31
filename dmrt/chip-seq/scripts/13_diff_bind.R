@@ -3,11 +3,11 @@ library(DiffBind)
 library(TxDb.Mmusculus.UCSC.mm39.knownGene)
 library(org.Mm.eg.db)
 library(ChIPseeker)
-library(tidyverse)
 library(GenomeInfoDb)
+library(rtracklayer)
 
 # # Setup
-out_dir <- "../results/13_diff/"
+out_dir <- "../results/13_diff_bind/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 meta_df <- read.csv("../meta/chip-sra-meta.csv")
 meta_df <- meta_df[meta_df$antibody == "Abcam ab4729"  & !is.na(meta_df$antibody), ]
@@ -99,3 +99,7 @@ anno_res1 <- annotatePeak(res1, TxDb = txdb, annoDb = "org.Mm.eg.db", tssRegion 
 # Output annotated results to CSV
 cat("\nWriting annotated results to CSV...\n")
 write.csv(as.data.frame(anno_res1), file.path(out_dir, "contrast1_all.csv"), row.names=FALSE)
+
+# Output significant peaks to a BED file
+sig_res1 <- res1[res1$FDR <= 0.05, ]
+export.bed(sig_res1, file.path(out_dir, "contrast1_significant_peaks.bed"))
